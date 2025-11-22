@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="120 320 560 250" width="800" height="800">
+  <!-- Animated wave -->
+  <g opacity="0.9">
+    <path d="M 150 430 Q 250 350, 350 430 T 550 430 Q 600 400, 650 430" 
+          fill="none" 
+          stroke="white" 
+          stroke-width="3" 
+          stroke-linecap="round">
+      <animate attributeName="d" 
+               dur="4s" 
+               repeatCount="indefinite"
+               values="
+                 M 150 430 Q 250 350, 350 430 T 550 430 Q 600 400, 650 430;
+                 M 150 430 Q 250 380, 350 430 T 550 430 Q 600 380, 650 430;
+                 M 150 430 Q 250 350, 350 430 T 550 430 Q 600 400, 650 430"/>
+    </path>
+    <!-- Dot on wave -->
+    <circle cx="400" cy="345" r="4" fill="white">
+      <animate attributeName="cy" 
+               dur="4s" 
+               repeatCount="indefinite"
+               values="345;365;345"/>
+    </circle>
+  </g>
+  
+  <!-- Nebulous text -->
+  <text x="400" 
+        y="550" 
+        font-family="Arial, Helvetica, sans-serif" 
+        font-size="80" 
+        font-weight="300" 
+        letter-spacing="15"
+        fill="white" 
+        text-anchor="middle">Nebulous</text>
+</svg>

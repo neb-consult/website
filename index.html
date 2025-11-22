@@ -3,68 +3,661 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nebulous LLC - AI Platform & Consulting</title>
-    <link rel="icon" type="image/png" href="assets/images/nebulous_favicon_64.png">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Nebulous LLC - AI Platform Development & Enterprise Solutions</title>
+    <meta name="description" content="Nebulous LLC specializes in AI platform development, data engineering, and enterprise consulting. We build intelligent systems that transform how organizations process and act on data.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #1d1d1f;
+            background: #ffffff;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo img {
+            height: 100px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10rem 2rem 8rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #particleCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .brand-text {
+            position: absolute;
+            top: calc(10% - 20px);
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.75rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            color: white;
+            opacity: 0;
+            z-index: 1;
+            animation: fadeIn 1.5s ease-out 3s forwards;
+            text-transform: uppercase;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 0.85;
+            }
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out 0.2s backwards;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 1.25rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.125rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out 0.4s backwards;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.35);
+            background: #f8f9ff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #1d1d1f;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 3.5rem 3rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.15);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card h3 {
+            font-size: 1.75rem;
+            margin-bottom: 1.25rem;
+            color: #1d1d1f;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        .service-card p {
+            color: #6e6e73;
+            line-height: 1.9;
+            font-size: 1.0625rem;
+        }
+
+        .tech-stack {
+            background: #f5f5f7;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .tech-tag {
+            background: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 500;
+            color: #667eea;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .about-section {
+            background: white;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: #6e6e73;
+        }
+
+        .contact-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .contact-section .section-title {
+            color: white;
+        }
+
+        .contact-info {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-item {
+            margin: 1.5rem 0;
+            font-size: 1.125rem;
+        }
+
+        .contact-item a {
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255,255,255,0.5);
+            transition: border-color 0.3s;
+        }
+
+        .contact-item a:hover {
+            border-color: white;
+        }
+
+        .footer {
+            background: #1d1d1f;
+            color: #6e6e73;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .footer-links {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #6e6e73;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 6rem 2rem 5rem;
+            }
+
+            .brand-text {
+                font-size: 1.25rem;
+                letter-spacing: 2px;
+                top: calc(8% - 20px);
+            }
+
+            .hero h1 {
+                font-size: 2.75rem;
+                letter-spacing: -1px;
+            }
+
+            .hero p {
+                font-size: 1.25rem;
+            }
+
+            .cta-button {
+                padding: 1rem 2.25rem;
+                font-size: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <img src="assets/images/nebulous_logo_white.svg" alt="Nebulous LLC">
+            </div>
+            <ul class="nav-links">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#technology">Technology</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <canvas id="particleCanvas"></canvas>
+        <div class="brand-text">Nebulous Consulting</div>
+        <h1>Building Intelligent Systems</h1>
+        <p>We specialize in AI platform development and enterprise solutions that transform how organizations process, analyze, and act on data.</p>
+        <a href="#contact" class="cta-button">Get Started</a>
+    </section>
+
+    <section id="services" class="section">
         <div class="container">
-            <div class="logo-section">
-                <div class="logo">
-                    <img src="assets/images/nebulous_256.png" alt="Nebulous LLC">
+            <h2 class="section-title">What We Do</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>AI Platform Engineering</h3>
+                    <p>Custom AI platforms and intelligent workflow systems tailored to enterprise needs. We build production-ready solutions that scale with your business and deliver measurable results.</p>
                 </div>
-                <div>
-                    <h1>Nebulous LLC</h1>
-                    <p class="tagline">AI Platform Development & Enterprise Consulting</p>
+                <div class="service-card">
+                    <h3>Intelligent Data Architecture</h3>
+                    <p>Transform raw data into strategic intelligence. We architect high-velocity pipelines that ingest, process, and structure massive datasets in real-time—turning information chaos into actionable insights that drive decisions.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Native Mobile Experiences</h3>
+                    <p>Bespoke native and cross-platform applications for iOS and Android. We design elegant, high-performance mobile experiences that seamlessly integrate with your enterprise systems.</p>
                 </div>
             </div>
         </div>
-    </header>
+    </section>
 
-    <main class="container">
-        <section class="hero">
-            <h2>Building Intelligent Systems</h2>
-            <p class="hero-text">We specialize in AI platform development and enterprise solutions that transform how organizations process, analyze, and act on data.</p>
-        </section>
-
-        <section>
-            <h2>What We Do</h2>
-            <div class="services">
-                <div class="service-card">
-                    <h3>AI Platform Development</h3>
-                    <p>Custom AI platforms and intelligent workflow systems tailored to enterprise needs.</p>
-                </div>
-                <div class="service-card">
-                    <h3>Data Engineering</h3>
-                    <p>Data ingestion, transformation, and embedding systems for large-scale applications.</p>
-                </div>
-                <div class="service-card">
-                    <h3>Enterprise Consulting</h3>
-                    <p>Strategic AI implementation and digital transformation advisory services.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="tech-section">
-            <p>Leveraging cutting-edge technologies including large language models, vector databases, modern cloud infrastructure, and advanced data processing frameworks to deliver scalable, production-ready solutions.</p>
-        </section>
-
-        <section class="contact-section">
-            <h2>Get in Touch</h2>
-            <div class="contact-info">
-                <p><a href="mailto:contact@nebulousconsult.com">contact@nebulousconsult.com</a></p>
-                <p><a href="https://nebulousconsult.com">nebulousconsult.com</a></p>
-            </div>
-        </section>
-    </main>
-
-    <footer>
+    <section id="technology" class="section tech-stack">
         <div class="container">
-            <p>&copy; 2024 Nebulous LLC. All rights reserved.</p>
+            <h2 class="section-title">Technology Stack</h2>
+            <p style="text-align: center; color: #6e6e73; margin-bottom: 2rem; font-size: 1.125rem;">Leveraging cutting-edge technologies to deliver scalable, production-ready solutions</p>
+            <div class="tech-tags">
+                <span class="tech-tag">Large Language Models</span>
+                <span class="tech-tag">Vector Databases</span>
+                <span class="tech-tag">Cloud Infrastructure</span>
+                <span class="tech-tag">Python/FastAPI</span>
+                <span class="tech-tag">React/Next.js</span>
+                <span class="tech-tag">iOS/Swift/SwiftUI</span>
+                <span class="tech-tag">Android/Kotlin</span>
+                <span class="tech-tag">React Native</span>
+                <span class="tech-tag">Data Processing Frameworks</span>
+                <span class="tech-tag">API Development</span>
+                <span class="tech-tag">DevOps & MLOps</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section about-section">
+        <div class="container">
+            <h2 class="section-title">About Nebulous</h2>
+            <div class="about-content">
+                <p style="margin-bottom: 1.5rem;">Nebulous Consulting is a boutique technology consultancy dedicated to crafting bespoke artificial intelligence and enterprise data solutions. We collaborate exclusively with select organizations to architect intelligent systems that transform business operations and drive measurable outcomes.</p>
+                <p style="margin-bottom: 1.5rem;">Our methodology unites advanced technical mastery with strategic business acumen. Rather than delivering off-the-shelf solutions, we engineer custom systems meticulously tailored to each client's unique challenges—building robust, production-grade infrastructure that organizations trust to power their most critical operations.</p>
+                <p>From initial concept through full-scale deployment, we serve as your dedicated partner in navigating sophisticated technical landscapes and delivering solutions designed to evolve with your business.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section contact-section">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <strong>Email:</strong><br>
+                    <a href="mailto:info@nebulousconsult.com">info@nebulousconsult.com</a>
+                </div>
+                <div class="contact-item">
+                    <strong>Business Inquiries:</strong><br>
+                    <a href="mailto:todd@nebulousconsult.com">todd@nebulousconsult.com</a>
+                </div>
+                <div class="contact-item" style="margin-top: 2rem;">
+                    Ready to transform your data infrastructure?<br>
+                    Let's discuss how we can help your organization.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Nebulous LLC. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#services">Services</a>
+                <a href="#technology">Technology</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+                <a href="/privacy.html">Privacy Policy</a>
+                <a href="/terms.html">Terms of Service</a>
+            </div>
         </div>
     </footer>
 
-    <script src="assets/js/main.js"></script>
+    <script>
+        // Particle Swarm Animation
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas size
+        function resizeCanvas() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Generate points along the wave path
+        function getWavePoints(numPoints) {
+            const points = [];
+            const centerY = canvas.height * 0.25; // Position wave above text
+            const width = canvas.width * 0.6; // Wave spans 60% of width
+            const startX = canvas.width * 0.2; // Start 20% from left
+            const amplitude = 35; // Wave height variation
+
+            for (let i = 0; i < numPoints; i++) {
+                const t = i / numPoints;
+                const x = startX + (width * t);
+                // Create a smooth wave using sine
+                const y = centerY + Math.sin(t * Math.PI * 4) * amplitude * Math.sin(t * Math.PI);
+                points.push({ x, y });
+            }
+            return points;
+        }
+
+        // Particle class
+        class Particle {
+            constructor(target) {
+                // Start at random position
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = 0;
+                this.vy = 0;
+                this.target = target;
+                this.radius = 1.5 + Math.random() * 1.5; // Size variation
+                this.opacity = 0.6 + Math.random() * 0.4;
+            }
+
+            update() {
+                // Calculate distance to target
+                const dx = this.target.x - this.x;
+                const dy = this.target.y - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                // Apply attraction force (stronger when further away)
+                const force = Math.min(distance * 0.003, 0.5);
+                const ax = (dx / distance) * force;
+                const ay = (dy / distance) * force;
+
+                // Update velocity with damping
+                this.vx = (this.vx + ax) * 0.95;
+                this.vy = (this.vy + ay) * 0.95;
+
+                // Update position
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Add slight randomness for organic feel
+                if (distance > 5) {
+                    this.x += (Math.random() - 0.5) * 0.5;
+                    this.y += (Math.random() - 0.5) * 0.5;
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        // Special bright star particle
+        class StarParticle extends Particle {
+            constructor(target) {
+                super(target);
+                this.radius = 4; // Larger than regular particles
+                this.opacity = 1; // Full brightness
+                this.floatOffset = 0;
+                this.baseY = target.y; // Already positioned above wave
+                this.target.y = this.baseY;
+            }
+
+            update() {
+                super.update();
+                // Add gentle floating after settled
+                if (animationTime >= animationDuration) {
+                    this.floatOffset = Math.sin(Date.now() * 0.002) * 8;
+                }
+            }
+
+            draw() {
+                // Draw glow effect
+                const gradient = ctx.createRadialGradient(this.x, this.y + this.floatOffset, 0, this.x, this.y + this.floatOffset, this.radius * 3);
+                gradient.addColorStop(0, 'rgba(255, 255, 255, 0.8)');
+                gradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.3)');
+                gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y + this.floatOffset, this.radius * 3, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Draw bright core
+                ctx.beginPath();
+                ctx.arc(this.x, this.y + this.floatOffset, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        // Initialize particles
+        const wavePoints = getWavePoints(180);
+        const particles = wavePoints.map(point => new Particle(point));
+
+        // Add the special star particle above and right of wave
+        const starTarget = {
+            x: canvas.width * 0.5 + 15,
+            y: canvas.height * 0.25 - 50
+        };
+        const starParticle = new StarParticle(starTarget);
+        particles.push(starParticle);
+
+        // Animation
+        let animationTime = 0;
+        const animationDuration = 180; // frames (about 3 seconds at 60fps)
+
+        function animate() {
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Update and draw particles
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            // Continue animation for duration, then add subtle floating
+            animationTime++;
+            if (animationTime < animationDuration) {
+                requestAnimationFrame(animate);
+            } else {
+                // After main animation, add gentle floating motion
+                floatAnimation();
+            }
+        }
+
+        // Gentle floating after particles settle
+        function floatAnimation() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach((particle, i) => {
+                // Add gentle wave motion
+                const offset = Math.sin(Date.now() * 0.001 + i * 0.1) * 2;
+                particle.y = particle.target.y + offset;
+                particle.draw();
+            });
+
+            requestAnimationFrame(floatAnimation);
+        }
+
+        // Start animation after a brief delay
+        setTimeout(() => {
+            animate();
+        }, 500);
+    </script>
 </body>
 </html>
